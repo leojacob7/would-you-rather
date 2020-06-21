@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { saveAnswerAction } from '../../src/redux/actions/questions';
+import Result from './Result';
 import { connect } from 'react-redux'
 
 class AnswerQuestion extends Component {
     state = {
-        selectedValue: '',
+		selectedValue: '',
+		answeredQuestion: false,
     }
 
     formSubmit = event => {
@@ -14,8 +15,8 @@ class AnswerQuestion extends Component {
 		if( selectedValue === '' ) return null;
 
 		const { authedUser, saveAnswer } = this.props;
-		const { question } = this.props.location.state;
-
+		const { question } = this.props.location.state || this.props;
+		this.setState({ answeredQuestion: true })
 		saveAnswer(authedUser.id, question.id , selectedValue)
     }
 
@@ -23,24 +24,12 @@ class AnswerQuestion extends Component {
         this.setState({
             selectedValue: event.target.name,
         })
-    }
-
-    render() {
-        const { question, user } = this.props.location.state;
-        const { selectedValue } = this.state;
-
-		return (
-			<div className="homePageContainer">
-				<div className="container">
-					<div className="questionAuthor">{`${user.name} asks`}</div>
-					<div className="questionWrapper">
-						<img
-							src={user.avatarURL}
-							alt=""
-							className="questionuserAvatar"
-						/>
-
-						<form onSubmit={this.formSubmit}>
+	}
+	
+	renderForm = () => {
+		const { question } = this.props.location.state;
+		const { selectedValue } = this.state;
+		return <form onSubmit={this.formSubmit}>
 							<div className="questionSection">
 								Would you rather
 								<label>
@@ -74,8 +63,27 @@ class AnswerQuestion extends Component {
 								Submit
 							</button>
 						</form>
+	}
+
+    render() {
+		const { user, question, answered } = this.props.location.state;
+		const { answeredQuestion } = this.state;
+
+		if( answeredQuestion || answered ) return <Result qid={question.id} user={user} />;
+
+		return (
+			<div className="homePageContainer">
+					<div className="container">
+						<div className="questionAuthor">{`${user.name} asks`}</div>
+						<div className="questionWrapper">
+							<img
+								src={user.avatarURL}
+								alt=""
+								className="questionuserAvatar"
+							/>
+							{ this.renderForm() }
+						</div>
 					</div>
-				</div>
 			</div>
 		);
     }

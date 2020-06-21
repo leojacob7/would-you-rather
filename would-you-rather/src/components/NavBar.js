@@ -9,7 +9,7 @@ class NavBar extends Component {
     }
 
     render() {
-        const { avatarURL, name } = this.props;
+        const { authedUser: { avatarURL, name } } = this.props;
 
         return (
 			<div className="headerNav">
@@ -26,6 +26,7 @@ class NavBar extends Component {
 				</div>
 				<div className="rightNav">
 					<img
+						alt='user'
 						src={!_.isNull(avatarURL) && avatarURL}
 						className="userName"
 					/>

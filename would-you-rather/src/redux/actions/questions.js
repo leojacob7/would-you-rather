@@ -1,6 +1,5 @@
 import {
-    GET_UNANSWERED_QUESTIONS,
-	GET_ANSWERED_QUESTIONS,
+	GET_QUESTIONS,
 	SAVE_ANSWER_REQUESTED,
 	SAVE_ANSWER_SUCCESS,
 	SAVE_ANSWER_FAILURE,
@@ -8,20 +7,12 @@ import {
 	SAVE_QUESTIONS,
 	SAVE_QUESTIONS_SUCCESS,
 } from '../constants/constants.js';
-import _ from 'lodash';
 
 import { getAllQuestions, saveAnswer } from '../../utils/API';
 
-export function getUnansweredQuestions( questions ) {
+export function getQuestionsList( questions ) {
     return {
-        type: GET_UNANSWERED_QUESTIONS,
-        questions,
-    }
-}
-
-export function getAnsweredQuestions( questions ) {
-    return {
-        type: GET_ANSWERED_QUESTIONS,
+        type: GET_QUESTIONS,
         questions,
     }
 }
@@ -55,43 +46,34 @@ export function getQuestions(authedUser) {
     .then((data) => {
 						const arrayOfQuestions = Object.keys(data.questions);
 						const questions = data.questions;
-						const answeredQuestionsList = arrayOfQuestions.filter(
+						const questionsList = arrayOfQuestions.map(
 							(question) => {
-								return (
-									questions[question].optionOne.votes
-										.toString()
-										.includes(authedUser.id) ||
-									questions[question].optionTwo.votes
-										.toString()
-										.includes(authedUser.id)
-								);
+								if (
+									questions[question].optionOne.votes.toString().includes(authedUser.id)
+									||
+									questions[question].optionTwo.votes.toString().includes(authedUser.id)
+								) {
+									questions[question].answered=true
+								} else {
+									questions[question].answered=false
+								}
+								return questions[question];
 							}
-						);
-
-                        const unAnsweredQuestionsList = _.difference(arrayOfQuestions, answeredQuestionsList);
-                        const answeredQuestions = answeredQuestionsList
-							.map((questionKey) => questions[questionKey])
-							.sort((a, b) => a.timeStamp - b.timeStamp);
-                        const unAnsweredQuestions = unAnsweredQuestionsList
-							.map((questionKey) => questions[questionKey])
-							.sort((a, b) => a.timeStamp - b.timeStamp);
-
-						dispatch(getUnansweredQuestions(unAnsweredQuestions));
-						dispatch(getAnsweredQuestions(answeredQuestions));
+						)
+						const newQuestionList = Object.assign({}, ...(questionsList.map(item => ({ [item.id]: {...item} }) )));
+						dispatch(getQuestionsList(newQuestionList));
 					});
 }
 
 export const saveAnswerAction = (authUser, qid, answer) => {
-	return dispatch => {
-    //   dispatch(saveAnswerRequested())
-      saveAnswer(authUser, qid, answer)
-        .then(response => {
-		  const users = response.data
-		  debugger;
-          dispatch(saveAnswerSuccess(users))
-        })
-        .catch(error => {
-          dispatch(saveAnswerFailure(error.message))
-        })
-    }
-  }
+	return (dispatch) => {
+		// dispatch(saveAnswerRequested());
+		saveAnswer(authUser, qid, answer)
+			.then(() => {
+				dispatch(saveAnswerSuccess({ authUser, qid, answer }));
+			})
+			.catch((error) => {
+				dispatch(saveAnswerFailure(error.message));
+			});
+	};
+};

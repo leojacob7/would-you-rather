@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 import AnswerQuestion from './AnswerQuestion';
+import Result from './Result'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class Question extends Component {
-	answerPoll = () => {
-		const { formattedQuestion: { question, user } } = this.props;
+	showResults = () => {
+		const {
+			formattedQuestion: { question, user },
+		} = this.props;
+		return <Result qid={question.id} user={user} />;
+	};
+
+	renderResults = (answered) => (
+		<button className="showResults" onClick={this.showResults}>
+			{answered ? 'Show Results' : 'AnswerQuestion'}
+		</button>
+	);
+
+	render() {
+		const {
+			formattedQuestion: { question, user },
+			answered,
+		} = this.props;
+
 		return (
-			<AnswerQuestion  formattedQuestion='qw' question={ question } user={ user }/>
-		)
-	}
-
-    render() {
-        const { formattedQuestion: { question, user } } = this.props
-
-        return (
 			<div className="container">
 				<div className="questionContainer">
 					<div className="questionAuthor">{`${user.name} asks`}</div>
@@ -35,20 +45,23 @@ class Question extends Component {
 							</div>
 							<Link
 								to={{
-								pathname: '/questions',
-								hash: question.id,
-								state: { question, user }
-							}}>
-							<button onClick={this.answerPoll}>
-								Answer Poll
-							</button>
+									pathname: '/questions',
+									hash: question.id,
+									state: {
+										question,
+										user,
+										answered: answered,
+									},
+								}}
+							>
+								{this.renderResults(answered)}
 							</Link>
 						</div>
 					</div>
 				</div>
 			</div>
 		);
-    }
+	}
 }
 
 const mapStateToProps = ( state, ownProps ) =>{

@@ -32,9 +32,9 @@ class App extends Component {
 							/>
 						)}
 						<Route exact path="/home" component={() => <LandingPage />} />
-						<Route exact path="/add" component={() => <NewPoll/>} />} />
-						<Route exact path="/leaderboard" component={() => <Leaderboard/>} />} />
-						<Route path="/questions/" component={AnswerQuestion} />} />
+						<Route exact path="/add" component={() => <NewPoll/>} />
+						<Route exact path="/leaderboard" component={() => <Leaderboard/>} />
+						<Route path="/questions/" component={AnswerQuestion} />
 					</Switch>
 				</Fragment>
 			</BrowserRouter>

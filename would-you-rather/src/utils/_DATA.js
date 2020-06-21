@@ -173,7 +173,6 @@ export function _saveQuestion (question) {
 
 export function _saveQuestionAnswer (data) {
   const { authedUser, qid, answer } = data;
-  debugger;
   return new Promise((res, rej) => {
     setTimeout(() => {
       users = {

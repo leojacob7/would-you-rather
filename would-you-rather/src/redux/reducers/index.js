@@ -7,4 +7,5 @@ export default combineReducers({
     authedUser: getAuthedUser,
     questions: getQuestions,
     users: getUsers,
+    loading: false,
 })

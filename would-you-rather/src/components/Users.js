@@ -29,7 +29,6 @@ class Users extends Component {
 }
 
 function mapStateToProps( store ) {
-	console.log('Users store.users :>> ', store);
     return {
         leo: store.authedUser
     }
