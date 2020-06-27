@@ -136,10 +136,30 @@
   justify-content: space-evenly;
 }
 
+.addQuestionContainer {
+  display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-height: 126px;
+    align-items: center;
+}
+
 .tab {
   width: 50%;
   border: 1px solid;
   padding: 10px;
+}
+
+.flexColumnDirection {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputStyle {
+  min-width: 500px;
+  min-height: 25px;
+  overflow: hidden;
+  padding-left: 30px;
 }
 
 .flexColumn {
@@ -149,6 +169,27 @@
 #progress {
   width: 100%;
   background-color: #ddd;
+}
+
+.score {
+  border: 1px solid;
+  padding: 10px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 49px;
+  margin-left: 20px;
+}
+
+.scoreText {
+  border-bottom: 1px solid;
+}
+
+.answeredWrapper{
+  display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .optionTwoSection {

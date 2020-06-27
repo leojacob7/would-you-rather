@@ -3,6 +3,7 @@ import {
     SAVE_ANSWER_REQUESTED,
     SAVE_ANSWER_SUCCESS,
     SAVE_ANSWER_FAILURE,
+    SAVE_QUESTIONS_SUCCESS
 } from '../constants/constants.js';
 
 const initialState = {};
@@ -43,6 +44,14 @@ export function getQuestions( state = initialState, action ) {
                 ...state,
                 error,
             }
+        
+        case SAVE_QUESTIONS_SUCCESS:
+            const question = action.data;
+            debugger;
+            return {
+                ...state,
+                [question.id]: question,
+		};
 
         default: return state
     }

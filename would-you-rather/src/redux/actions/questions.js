@@ -4,11 +4,12 @@ import {
 	SAVE_ANSWER_SUCCESS,
 	SAVE_ANSWER_FAILURE,
 	SAVE_QUESTIONS_REQUESTED,
-	SAVE_QUESTIONS,
 	SAVE_QUESTIONS_SUCCESS,
+	SAVE_QUESTIONS_FAILURE,
 } from '../constants/constants.js';
 
-import { getAllQuestions, saveAnswer } from '../../utils/API';
+import { addAnswerForUser, addQuestionForUser } from './users';
+import { getAllQuestions, saveAnswer, saveQuestion } from '../../utils/API';
 
 export function getQuestionsList( questions ) {
     return {
@@ -35,6 +36,29 @@ export function saveAnswerSuccess(data) {
 export function saveAnswerFailure(error) {
     return {
         type: SAVE_ANSWER_FAILURE,
+		loading: false,
+		error: error
+    }
+}
+
+export function saveQuestionRequested() {
+    return {
+        type: SAVE_QUESTIONS_REQUESTED,
+        loading: true,
+    }
+}
+
+export function saveQuestionSuccess(data) {
+    return {
+        type: SAVE_QUESTIONS_SUCCESS,
+		loading: false,
+		data,
+    }
+} 
+
+export function saveQuestionFailure(error) {
+    return {
+        type: SAVE_QUESTIONS_FAILURE,
 		loading: false,
 		error: error
     }
@@ -71,6 +95,22 @@ export const saveAnswerAction = (authUser, qid, answer) => {
 		saveAnswer(authUser, qid, answer)
 			.then(() => {
 				dispatch(saveAnswerSuccess({ authUser, qid, answer }));
+				dispatch(addAnswerForUser({ authUser, qid, answer }));
+			})
+			.catch((error) => {
+				dispatch(saveAnswerFailure(error.message));
+			});
+	};
+};
+
+export const saveQuestionAction = (question) => {
+	return (dispatch) => {
+		// dispatch(saveAnswerRequested());
+		saveQuestion(question)
+			.then((data) => {
+				console.log('d :>> ', data);
+				dispatch(saveQuestionSuccess(data));
+				dispatch(addQuestionForUser(data));
 			})
 			.catch((error) => {
 				dispatch(saveAnswerFailure(error.message));
