@@ -15,7 +15,7 @@ class AnswerQuestion extends Component {
 		if( selectedValue === '' ) return null;
 
 		const { authedUser, saveAnswer } = this.props;
-		const { question } = this.props.location.state || this.props;
+		const { question } = this.props;
 		this.setState({ answeredQuestion: true })
 		saveAnswer(authedUser.id, question.id , selectedValue)
     }
@@ -27,7 +27,7 @@ class AnswerQuestion extends Component {
 	}
 	
 	renderForm = () => {
-		const { question } = this.props.location.state;
+		const { question } = this.props;
 		const { selectedValue } = this.state;
 		return <form onSubmit={this.formSubmit}>
 							<div className="questionSection">
@@ -66,7 +66,7 @@ class AnswerQuestion extends Component {
 	}
 
     render() {
-		const { user, question, answered } = this.props.location.state;
+		const { user, question, answered } = this.props;
 		const { answeredQuestion } = this.state;
 
 		if( answeredQuestion || answered ) return <Result qid={question.id} user={user} />;

@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import Result from './Result'
+import AnswerQuestion from './AnswerQuestion'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class Question extends Component {
-	showResults = () => {
+	showResults = (answered) => {
 		const {
 			formattedQuestion: { question, user },
 		} = this.props;
-		return <Result qid={question.id} user={user} />;
+		if ( !question.answered ) { return <AnswerQuestion qid={question.id} question={question} user={user} answered={answered}/> }
+		else return <Result qid={question.id} user={user} />;
 	};
 
 	renderResults = (answered) => (
-		<button className="showResults" onClick={this.showResults}>
+		<button className="showResults" onClick={(answered) => this.showResults(answered)}>
 			{answered ? 'Show Results' : 'AnswerQuestion'}
 		</button>
 	);
@@ -42,7 +44,7 @@ class Question extends Component {
 							<div className="optionTwo">
 								{question.optionTwo.text}
 							</div>
-							<Link
+							{/* <Link
 								to={{
 									pathname: '/questions',
 									hash: question.id,
@@ -52,9 +54,9 @@ class Question extends Component {
 										answered: answered,
 									},
 								}}
-							>
+							> */}
 								{this.renderResults(answered)}
-							</Link>
+							{/* </Link> */}
 						</div>
 					</div>
 				</div>

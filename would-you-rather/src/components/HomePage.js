@@ -40,10 +40,10 @@ class HomePage extends Component {
 					</div>
                     {
                         tab === 'answered' ? !_.isEmpty(answeredQuestions) && answeredQuestions.map( ( question, index ) =>
-                            <Question key={ index } question={ question} answered={ true } />
+                            <Question key={ index } qid={ question.id } question={ question} answered={ true } />
                             )
                             : !_.isEmpty(unansweredQuestions) && unansweredQuestions.map( (question, index) =>
-                                <Question key={ index } question={ question} />
+                                <Question qid={ question.id } key={ index } question={ question} />
                                 )
                     }
 				</div>

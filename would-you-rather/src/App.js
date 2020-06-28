@@ -4,7 +4,7 @@ import LoginPage from '../src/components/LoginPage';
 import LandingPage from './components/LandingPage'
 import NewPoll from '../src/components/NewPoll.js'
 import Leaderboard from '../src/components/Leaderboard.js'
-import AnswerQuestion from '../src/components/AnswerQuestion'
+import Question from '../src/components/Question'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { getUsersAction } from '../src/redux/actions/shared';
 import { setAuthedUser } from '../src/redux/actions/authedusers';
@@ -34,7 +34,7 @@ class App extends Component {
 						<Route exact path="/home" component={() => <LandingPage />} />
 						<Route exact path="/add" component={() => <NewPoll/>} />
 						<Route exact path="/leaderboard" component={() => <Leaderboard/>} />
-						<Route path="/questions/" component={AnswerQuestion} />
+						<Route path="/questions/:qid" component={Question} />
 					</Switch>
 				</Fragment>
 			</BrowserRouter>
