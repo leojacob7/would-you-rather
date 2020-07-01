@@ -47,7 +47,6 @@ export function getQuestions( state = initialState, action ) {
         
         case SAVE_QUESTIONS_SUCCESS:
             const question = action.data;
-            debugger;
             return {
                 ...state,
                 [question.id]: question,

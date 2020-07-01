@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from 'react-loader-spinner'
+import Loader from 'react-loader-spinner';
+import Vote from '../utils/checked.png';
 
 class Result extends Component {
 	renderLoading = () => (
@@ -64,6 +65,7 @@ class Result extends Component {
 									{selectedValue === 'optionOne'
 										? votingIndicator
 										: `${op1} of ${totalVotes} people voted this`}
+									{ selectedValue === 'optionOne' && <img className="voteIcon" src={ Vote } alt='vote'/> }
 								</div>
 								<div className="optionTwoSection">
 									<div className="optionText">
@@ -80,6 +82,7 @@ class Result extends Component {
 									{selectedValue === 'optionTwo'
 										? votingIndicator
 										: `${op2} of ${totalVotes} people voted this`}
+										{ selectedValue === 'optionTwo' && <img src={ Vote } alt='vote'/> }
 								</div>
 							</div>
 						</div>

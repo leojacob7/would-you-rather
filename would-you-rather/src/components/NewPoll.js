@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { saveQuestionAction } from '../../src/redux/actions/questions'
 
 class NewPoll extends Component {
@@ -13,8 +13,10 @@ class NewPoll extends Component {
         const { user: { id }, saveQuestionAction } = this.props;
         const { optionOneText, optionTwoText} = this.state;
         e.preventDefault();
-		saveQuestionAction({ optionOneText, optionTwoText, author: id })
-		return <Redirect to='home' />
+		saveQuestionAction({ optionOneText, optionTwoText, author: id }) 
+		return <Redirect to='/leaderboard' />;
+		// setInterval(() => <Redirect to='/home' />)
+		// if (1) return <Redirect to='/home' />
     }
 
     onChangeOption = event => {

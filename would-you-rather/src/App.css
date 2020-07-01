@@ -162,6 +162,17 @@
   padding-left: 30px;
 }
 
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.voteIcon {
+  width: 30px;
+  margin: 10px;
+}
+
 .flexColumn {
   display: flex;
   justify-content: space-between;
