@@ -3,14 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class Question extends Component {
-	// showResults = (answered) => {
-	// 	const {
-	// 		formattedQuestion: { question, user },
-	// 	} = this.props;
-	// 	if ( !question.answered ) { return <AnswerQuestion qid={question.id} question={question} user={user} answered={answered}/> }
-	// 	else return <Result qid={question.id} user={user} />;
-	// };
-
 	renderResults = (answered) => (
 		<Link to={`/questions/${this.props.question.id}`}>
 			<button className="showResults">

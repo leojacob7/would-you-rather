@@ -1,22 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import Loader from 'react-loader-spinner';
 import { saveQuestionAction } from '../../src/redux/actions/questions'
 
 class NewPoll extends Component {
 
     state = {
         optionOneText: '',
-        optionTwoText: '',
-    }
+		optionTwoText: '',
+		redirect: false,
+	}
+
+	renderLoading = () => (
+		<Loader
+			type="Puff"
+			color="#00BFFF"
+			height={100}
+			width={100}
+			timeout={3000} //3 secs
+		/>
+	);
+
     formSubmit = e => {
         const { user: { id }, saveQuestionAction } = this.props;
         const { optionOneText, optionTwoText} = this.state;
         e.preventDefault();
-		saveQuestionAction({ optionOneText, optionTwoText, author: id }) 
-		return <Redirect to='/leaderboard' />;
-		// setInterval(() => <Redirect to='/home' />)
-		// if (1) return <Redirect to='/home' />
+		saveQuestionAction({ optionOneText, optionTwoText, author: id });
+		this.renderLoading();
+		this.setState({redirect: true})
     }
 
     onChangeOption = event => {
@@ -24,6 +36,7 @@ class NewPoll extends Component {
         this.setState({ [event.target.name]: event.target.value });
     }
     render() {
+		if ( this.state.redirect ) return <Redirect to='/home' />;
         return (
 			<div className="homePageContainer">
 				<div className="homePage">
