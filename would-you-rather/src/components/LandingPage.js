@@ -7,8 +7,6 @@ import _ from 'lodash';
 
 class LandingPage extends Component {
     render() {
-        if(_.isNull(this.props.authedUser)  ) return <Redirect to="/" />
-        else{
             const { authedUser } = this.props;
             return (
 				<div>
@@ -16,7 +14,6 @@ class LandingPage extends Component {
                     
 				</div>
 			);
-        }
     }
 }
 

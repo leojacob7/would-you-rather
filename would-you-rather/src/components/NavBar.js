@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 class NavBar extends Component {
     onLogout = () => {
-        const { setLoggedInUser } = this.props;
+		const { setLoggedInUser } = this.props;
         setLoggedInUser(null)
     }
 
@@ -31,9 +31,11 @@ class NavBar extends Component {
 						className="userName"
 					/>
 					<div>{name} </div>
+					<Link to="/">
 					<div className="logout" onClick={this.onLogout}>
 						Logout
 					</div>
+					</Link>
 				</div>
 			</div>
 		);

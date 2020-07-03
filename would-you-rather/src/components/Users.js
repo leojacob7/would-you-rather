@@ -7,7 +7,6 @@ class Users extends Component {
     loginandRedirectUser = userData => {
         const { setLoggedInUser } = this.props;
         setLoggedInUser(userData);
-        return <Redirect to='home' />
     }
 
     render() {
@@ -15,7 +14,6 @@ class Users extends Component {
         const { name, avatarURL } = userData;
         console.log('authedUsers :>> ', leo);
         return (
-			<Link to="home">
 				<div
 					className="user"
 					onClick={() => this.loginandRedirectUser(userData)}
@@ -23,7 +21,6 @@ class Users extends Component {
 					<img src={avatarURL} alt="" className="userAvatar" />
 					<div className="username">{name}</div>
 				</div>
-			</Link>
 		);
     }
 }

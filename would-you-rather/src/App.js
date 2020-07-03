@@ -19,24 +19,42 @@ class App extends Component {
 
 	render() {
 		const { users, authedUser, setLoggedInUser } = this.props;
+		debugger;
 		return (
 			<BrowserRouter>
-				<Fragment>
-					{ !_.isEmpty(authedUser) && <NavBar authedUser={authedUser} setLoggedInUser={ setLoggedInUser } /> }
-					<Switch>
-						{!_.isEmpty(users) && (
-							<Route
-								exact
-								path="/"
-								component={() => <LoginPage users={users} />}
+				<div>
+					{authedUser === null || !authedUser ? (
+						<Route render={() => <LoginPage users={users} />} />
+					) : (
+						<div>
+							<NavBar
+								authedUser={authedUser}
+								setLoggedInUser={setLoggedInUser}
 							/>
-						)}
-						<Route exact path="/home" component={() => <LandingPage />} />
-						<Route exact path="/add" component={() => <NewPoll/>} />
-						<Route exact path="/leaderboard" component={() => <Leaderboard/>} />
-						<Route path="/questions/:qid" component={QuestionCard} />
-					</Switch>
-				</Fragment>
+							<Switch>
+								<Route
+									exact
+									path="/leaderboard"
+									component={() => <Leaderboard />}
+								/>
+								<Route
+									exact
+									path="/"
+									component={() => <LandingPage />}
+								/>
+								<Route
+									exact
+									path="/add"
+									component={() => <NewPoll />}
+								/>
+								<Route
+									path="/questions/:qid"
+									component={QuestionCard}
+								/>
+							</Switch>
+						</div>
+					)}
+				</div>
 			</BrowserRouter>
 		);
 	}
