@@ -108,7 +108,6 @@ export const saveQuestionAction = (question) => {
 		// dispatch(saveAnswerRequested());
 		saveQuestion(question)
 			.then((data) => {
-				console.log('d :>> ', data);
 				dispatch(saveQuestionSuccess(data));
 				dispatch(addQuestionForUser(data));
 			})

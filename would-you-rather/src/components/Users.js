@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { setAuthedUser } from '.././../src/redux/actions/authedusers';
-import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Users extends Component {
@@ -10,9 +9,8 @@ class Users extends Component {
     }
 
     render() {
-        const {userData, leo} = this.props;
+        const { userData } = this.props;
         const { name, avatarURL } = userData;
-        console.log('authedUsers :>> ', leo);
         return (
 				<div
 					className="user"
@@ -25,17 +23,10 @@ class Users extends Component {
     }
 }
 
-function mapStateToProps( store ) {
-    return {
-        leo: store.authedUser
-    }
-
-}
-
 const mapDispatchToProps = dispatch => {
     return {
         setLoggedInUser: (user) => dispatch(setAuthedUser(user))
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)( Users );
+export default connect(null, mapDispatchToProps)( Users );

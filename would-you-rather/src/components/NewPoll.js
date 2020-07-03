@@ -36,7 +36,7 @@ class NewPoll extends Component {
         this.setState({ [event.target.name]: event.target.value });
     }
     render() {
-		if ( this.state.redirect ) return <Redirect to='/home' />;
+		if ( this.state.redirect ) return <Redirect to='/' />;
         return (
 			<div className="homePageContainer">
 				<div className="homePage">

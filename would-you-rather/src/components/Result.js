@@ -95,7 +95,6 @@ class Result extends Component {
 
 const mapStateToProps = ( state, ownProps ) =>{
     const question = state.questions[ownProps.qid];
-    console.log('state.questions[ownProps.qid] :>> ', state);
     let selectedValue;
     if (question.answered) {
         selectedValue = question.optionOne.votes.toString().includes(ownProps.user.id) ? 'optionOne' : 'optionTwo';

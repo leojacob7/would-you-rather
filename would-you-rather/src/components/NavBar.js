@@ -14,7 +14,7 @@ class NavBar extends Component {
         return (
 			<div className="headerNav">
 				<div className="leftNav">
-					<Link to="/home">
+					<Link to="/">
 						<div className="home">Home</div>
 					</Link>
 					<Link to="/add">

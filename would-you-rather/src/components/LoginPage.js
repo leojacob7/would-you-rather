@@ -13,8 +13,8 @@ class LoginPage extends Component {
 				</div>
 				<div className="userContainer">
 					{users &&
-						Object.keys(users).map((user) => (
-							<Users userData={users[user]} />
+						Object.keys(users).map((user, index) => (
+							<Users userData={users[user]} key={index} />
 						))}
 				</div>
 			</div>

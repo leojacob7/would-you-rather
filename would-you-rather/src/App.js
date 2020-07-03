@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LoginPage from '../src/components/LoginPage';
 import LandingPage from './components/LandingPage'
@@ -9,7 +9,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { getUsersAction } from '../src/redux/actions/shared';
 import { setAuthedUser } from '../src/redux/actions/authedusers';
 import NavBar from '../src/components/NavBar'
-import _ from 'lodash';
 import './App.css';
 
 class App extends Component {
