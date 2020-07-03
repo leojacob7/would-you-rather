@@ -1,5 +1,18 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## About the Application:
+This is a simple Would you rather game designed with react and redux
+The basic intention is to develop an authentication driven page for would you rather game. 
+
+1.The logged in user can see the available answered and unanswered question.
+2. User can answer a question to see the number of votes.
+3. Just like any game a user wins or goes top of the leaderboard if sum of questions asked and questions answered is the highest.
+
+Being a front end only project we are saving all the data in the https://github.com/leojacob7/would-you-rather/blob/master/would-you-rather/src/utils/API.js
+All of the db related stuffs are handled in the redux part and state is saved along with saving them to the local db.
+
+Libraries used: React, react-router-dom redux redux-thunk
+
 ## Available Scripts
 
 In the project directory, you can run:
