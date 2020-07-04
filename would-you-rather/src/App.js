@@ -18,7 +18,6 @@ class App extends Component {
 
 	render() {
 		const { users, authedUser, setLoggedInUser } = this.props;
-		debugger;
 		return (
 			<BrowserRouter>
 				<div>

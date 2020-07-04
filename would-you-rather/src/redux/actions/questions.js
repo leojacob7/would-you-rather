@@ -83,7 +83,7 @@ export function getQuestions(authedUser) {
 								}
 								return questions[question];
 							}
-						)
+						).sort((a,b) => b.timeStamp - a.timeStamp )
 						const newQuestionList = Object.assign({}, ...(questionsList.map(item => ({ [item.id]: {...item} }) )));
 						dispatch(getQuestionsList(newQuestionList));
 					});

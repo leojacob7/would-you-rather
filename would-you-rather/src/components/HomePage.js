@@ -21,11 +21,10 @@ class HomePage extends Component {
     
     render() {
         const { tab } = this.state;
-        const { questions } = this.props;
+        const { questions, answeredQuestionsList, unansweredQuestionsList } = this.props;
         if(questions === undefined || _.isEmpty(questions)) return null;
-        const answeredQuestions = Object.values(questions).filter(question => question.answered).sort((a,b) => b.timeStamp - a.timeStamp );
-        const unansweredQuestions = Object.values(questions).filter(question => !question.answered).sort((a,b) => b.timeStamp - a.timeStamp );
-        
+        const answeredQuestions = _.sortBy(answeredQuestionsList, [function(o) { return o.timeStamp; }]).reverse();
+        const unansweredQuestions = _.sortBy(unansweredQuestionsList, [function(o) { return o.timeStamp; }]).reverse()
 
         return (
 			<div className="homePageContainer">
@@ -55,6 +54,8 @@ class HomePage extends Component {
 const mapStateToProps = (state) => {
     return {
         questions: state.questions,
+        answeredQuestionsList: Object.values(state.questions).filter(question => question.answered).sort((a,b) => b.timeStamp - a.timeStamp ),
+        unansweredQuestionsList: Object.values(state.questions).filter(question => !question.answered).sort((a,b) => b.timeStamp - a.timeStamp )
     };
 }
 

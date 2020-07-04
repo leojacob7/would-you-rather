@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Result from './Result'
-import AnswerQuestion from './AnswerQuestion'
+import Result from './Result';
+import { getQuestions } from '../../src/redux/actions/questions';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from 'react-loader-spinner';
+import AnswerQuestion from './AnswerQuestion';
 
 class QuestionCard extends Component {
+    componentDidMount() {
+        this.props.dispatch(getQuestions(this.props.authedUser));
+    }
+
+    renderLoading = () => (
+		<Loader
+			type="Puff"
+			color="#00BFFF"
+			height={100}
+			width={100}
+			timeout={3000}
+		/>
+	);
+
     render() {
         const { formattedQuestion: { question, user }, badPath } = this.props;
+        { !question && this.renderLoading() } 
         if ( badPath ) return <div className="flexCenter">Sorry that page does not exist</div>
         if ( question.answered ) return <Result qid={question.id} user={user} />
         return (
@@ -23,7 +41,12 @@ const mapStateToProps = ( state, ownProps ) =>{
     return {
         formattedQuestion: { question, user },
         badPath,
+        authedUser: state.authedUser,
     }
 }
+
+// const mapDispatchToProps = dispatch => ({
+//     getQuestionsForAuthedUser: () => dispatch(getQuestionsForAuthedAccount)
+// })
 
 export default connect( mapStateToProps )( QuestionCard );

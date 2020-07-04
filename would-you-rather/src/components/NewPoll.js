@@ -26,9 +26,12 @@ class NewPoll extends Component {
         const { user: { id }, saveQuestionAction } = this.props;
         const { optionOneText, optionTwoText} = this.state;
         e.preventDefault();
-		saveQuestionAction({ optionOneText, optionTwoText, author: id });
+		if( optionOneText !== optionTwoText && (optionOneText !== '' && optionTwoText !== '' ) ) {
+			saveQuestionAction({ optionOneText, optionTwoText, author: id });
 		this.renderLoading();
 		this.setState({redirect: true})
+		}
+		else alert( 'Please enter a valid option' )
     }
 
     onChangeOption = event => {

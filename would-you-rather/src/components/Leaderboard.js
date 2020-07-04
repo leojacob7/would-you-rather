@@ -29,34 +29,29 @@ class Leaderboard extends Component {
     }
 
     render() {
-        const { users } = this.props;
-        const sortedUserList = Object.values(users).sort((a,b) => 
+        const { users = [], } = this.props;
+
+            return (
+				<div>
+					<div className="homePageContainer flexColumnDirection">
+						{users.map((user, index) =>
+							this.renderLeaderBoardTile(user, index)
+						)}
+					</div>
+				</div>
+			);
+    }
+}
+
+const mapStateToProps = state => {
+    const sortedUserList = Object.values(state.users).sort((a,b) => 
         {
             const objAanswers = Object.keys(a.answers)
             const objAQuestions = Object.keys(a.questions)
             const objBanswers = Object.keys(b.answers)
             const objBQuestions = Object.keys(b.questions)
             return ( objBanswers.length + objBQuestions.length )- ( objAanswers.length + objAQuestions.length )})
-
-            return (
-            <div>
-				<div className="homePageContainer flexColumnDirection">
-                            {
-                                sortedUserList.map( (user, index) =>  this.renderLeaderBoardTile(user, index) )
-                            }
-							{/* <img
-								src={user.avatarURL}
-								alt=""
-								className="questionuserAvatar"
-							/> */}
-						</div>
-					</div>
-        );
-    }
+    return { users: sortedUserList }
 }
-
-const mapStateToProps = state => ({
-    users: state.users
-})
 
 export default connect( mapStateToProps )( Leaderboard);
