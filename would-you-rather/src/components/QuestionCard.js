@@ -8,22 +8,22 @@ import AnswerQuestion from './AnswerQuestion';
 
 class QuestionCard extends Component {
     componentDidMount() {
-        this.props.dispatch(getQuestions(this.props.authedUser));
-    }
-
-    renderLoading = () => (
-		<Loader
-			type="Puff"
-			color="#00BFFF"
-			height={100}
-			width={100}
-			timeout={3000}
-		/>
-	);
+							this.props.dispatch(
+								getQuestions(this.props.authedUser)
+							);
+						}
 
     render() {
         const { formattedQuestion: { question, user }, badPath } = this.props;
-        { !question && this.renderLoading() } 
+        if( !question ) return <div className="spinner">
+        <Loader
+        type="Puff"
+        color="#00BFFF"
+        height={100}
+        width={100}
+        timeout={3000}
+    />
+    </div>
         if ( badPath ) return <div className="flexCenter">Sorry that page does not exist</div>
         if ( question.answered ) return <Result qid={question.id} user={user} />
         return (

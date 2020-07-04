@@ -75,6 +75,13 @@
   flex-wrap: nowrap;
 }
 
+.spinner { 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .questionuserAvatar {
   margin: 20px;
   border-radius: 50%;
